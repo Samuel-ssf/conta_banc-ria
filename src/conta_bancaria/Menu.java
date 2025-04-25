@@ -12,7 +12,8 @@ public class Menu {
 		Scanner leia = new Scanner(System.in);
 
 		int opcao;
-
+		
+		
 		Conta c1 = new Conta(1, 123, 1, "Samuel", 50000000);
 		c1.visualizar();
 
@@ -23,7 +24,7 @@ public class Menu {
 		c1.depositar(1000);
 		c1.visualizar();
 
-		// Alterar o Nome do Titular
+		// Alterar o Nome do Titular Samuel
 		c1.setTitular("Samuel Silva");
 		c1.visualizar();
 
