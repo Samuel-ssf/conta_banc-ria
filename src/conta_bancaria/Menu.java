@@ -13,15 +13,14 @@ public class Menu {
 		Scanner leia = new Scanner(System.in);
 
 		int opcao;
-		
-		
+
 		Conta c1 = new Conta(1, 123, 1, "Samuel", 50000000);
 		c1.visualizar();
 
 		// Sacar
 		c1.sacar(100);
 		c1.visualizar();
-		
+
 		// Depositar
 		c1.depositar(1000);
 		c1.visualizar();
@@ -29,17 +28,17 @@ public class Menu {
 		// Alterar o Nome do Titular Samuel
 		c1.setTitular("Samuel Silva");
 		c1.visualizar();
-		
-		//Instanciando um objeto da Classe Conta Corrente
+
+		// Instanciando um objeto da Classe Conta Corrente
 		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, "Sonia Inês", 600000, 60000);
 		cc1.visualizar();
-		
+
 		cc1.sacar(661000);
 		cc1.visualizar();
-		
+
 		cc1.depositar(50000);
 		cc1.visualizar();
-		
+
 		while (true) {
 
 			System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);

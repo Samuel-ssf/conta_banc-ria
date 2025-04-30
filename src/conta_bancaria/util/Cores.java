@@ -2,7 +2,7 @@ package conta_bancaria.util;
 
 	public class Cores {
 	 
-			//Reset Color
+		    //Reset Colorr
 			public static final String TEXT_RESET = "\u001B[0m";
 	 
 			//Text Color
