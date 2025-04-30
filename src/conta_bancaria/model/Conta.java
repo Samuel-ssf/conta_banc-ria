@@ -100,7 +100,7 @@ public class Conta {
 		System.out.println("" + Cores.TEXT_RESET);
 		System.out.println("* NÚMERO DA CONTA: " + this.numero);
 		System.out.println("* NÚMERO DA AGENCIA: " + this.agencia);
-		System.out.println("* TIPO DA CONTA: " + this.tipo);
+		System.out.println("* TIPO DA CONTA: " + tipo);
 		System.out.println("* TITULAR DA CONTA: " + this.titular);
 		System.out.println("* SALDO DA CONTA: " + nfMoeda.format(this.saldo));
 		System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);
