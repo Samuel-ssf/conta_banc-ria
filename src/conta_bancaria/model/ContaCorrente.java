@@ -2,6 +2,8 @@ package conta_bancaria.model;
 
 import java.text.NumberFormat;
 
+import conta_bancaria.util.Cores;
+
 public class ContaCorrente extends Conta {
 
 	private float limite;
@@ -22,7 +24,7 @@ public class ContaCorrente extends Conta {
 	@Override
 	public boolean sacar(float valor) {
 		if ((this.getSaldo() + this.limite) < valor) {
-			System.out.println("\nSaldo é Insuficiente");
+			System.out.println("Saldo Insuficiente!");
 			return false;
 		}
 
@@ -34,7 +36,12 @@ public class ContaCorrente extends Conta {
 	public void visualizar() {
 		NumberFormat nfMoeda = NumberFormat.getCurrencyInstance();
 		super.visualizar();
-		System.out.println("Limite da Conta:" + nfMoeda.format(this.limite));
+		System.out.println("* LIMITE DA CONTA: " + nfMoeda.format(this.limite));
+		System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);
+		System.out.println("********************************************************");
+		System.out.println(Cores.TEXT_RESET);
+
+
 	}
 
 }

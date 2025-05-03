@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 import conta_bancaria.util.Cores;
 
-public class Conta {
+public abstract class Conta {
 
 	// Atributos da Classe
 	private int numero;
@@ -105,12 +105,7 @@ public class Conta {
 		System.out.println("* TIPO DA CONTA: " + tipo);
 		System.out.println("* TITULAR DA CONTA: " + this.titular);
 		System.out.println("* SALDO DA CONTA: " + nfMoeda.format(this.saldo));
-		System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);
-		System.out.println("********************************************************");
-		System.out.println("" + Cores.TEXT_RESET);
-		System.out.println("\n");
-
-		
+				
 
 	}
 
