@@ -1,9 +1,11 @@
 package conta_bancaria;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import conta_bancaria.controller.ContaController;
+import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -19,12 +21,12 @@ public class Menu {
 		int opcao, numero, agencia, tipo, aniversario;
 		String titular;
 		float saldo, limite;
-		
-		//Dados para teste 
-		//ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
-		//contas.cadastrar(cc1);
-		//ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
-		//contas.cadastrar(cp1);
+
+		// Dados para teste
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
+		contas.cadastrar(cc1);
+		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
+		contas.cadastrar(cp1);
 
 		while (true) {
 
@@ -65,7 +67,7 @@ public class Menu {
 
 			switch (opcao) {
 			case 1:
-				
+
 				System.out.println("Digite o Número da Agência:");
 				agencia = leia.nextInt();
 
@@ -91,7 +93,7 @@ public class Menu {
 					contas.cadastrar(
 							new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
 				}
-			}
+				}
 
 				keyPress();
 				break;
@@ -102,21 +104,63 @@ public class Menu {
 				break;
 			case 3:
 				System.out.println(Cores.TEXT_WHITE + "Consultar dados da Conta - por número\n\n");
-				
+
 				System.out.println("Digite o Número da Conta:");
 				numero = leia.nextInt();
-				
+
 				contas.procurarPorNumero(numero);
-				
+
 				keyPress();
 				break;
 			case 4:
 				System.out.println(Cores.TEXT_WHITE + "Atualizar dados da Conta\n\n");
 
+				System.out.println("Digite o Número da Conta:");
+				numero = leia.nextInt();
+
+				Optional<Conta> conta = contas.buscarNaCollection(numero);
+
+				if (conta.isPresent()) {
+					System.out.println("Digite o Número da Agência:");
+					agencia = leia.nextInt();
+
+					System.out.println("\nDigite o Nome do Titular:");
+					leia.skip("\\R");
+					titular = leia.nextLine();
+
+					tipo = conta.get().getTipo();
+
+					System.out.println("\nDigite o Tipo da Conta (1 - CC | 2 - CP:");
+					tipo = leia.nextInt();
+
+					System.out.println("\nDigite o novo Saldo Inicial da Conta:");
+					saldo = leia.nextFloat();
+
+					switch (tipo) {
+					case 1 -> {
+						System.out.println("\nDigite o Limite da Conta:");
+						limite = leia.nextFloat();
+						contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+					}
+					case 2 -> {
+						System.out.println("\nDigite o Dia do Aniversário da Conta:");
+						aniversario = leia.nextInt();
+						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+					}
+				}
+
+				} else
+					System.out.printf("\n Aconta número %d nao existe!", numero);
+
 				keyPress();
 				break;
 			case 5:
 				System.out.println(Cores.TEXT_WHITE + "Apagar a Conta\n\n");
+
+				System.out.println("Digite o Número da Conta:");
+				numero = leia.nextInt();
+
+				contas.deletar(numero);
 
 				keyPress();
 				break;
