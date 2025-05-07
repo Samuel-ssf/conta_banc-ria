@@ -2,7 +2,9 @@ package conta_bancaria.controller;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import conta.repository.ContaRepository;
 import conta_bancaria.model.Conta;
@@ -31,6 +33,20 @@ public class ContaController implements ContaRepository {
 		for (var conta : ListaContas) {
 			conta.visualizar();
 		}
+	}
+
+	@Override
+	public void listarPorTitular(String titular) {
+
+		List<Conta> listaTitulares = ListaContas.stream()
+				.filter(c -> c.getTitular().toUpperCase().contains(titular.toUpperCase()))
+				.collect(Collectors.toList());
+
+		if (listaTitulares.isEmpty())
+			System.out.printf("\nNenhuma conta foi encontrada com base no criterio: %s", titular);
+
+		for (var conta : listaTitulares)
+			conta.visualizar();
 	}
 
 	@Override
@@ -109,7 +125,8 @@ public class ContaController implements ContaRepository {
 		if (contaOrigem.isPresent() && contaDestino.isEmpty()) {
 			if (contaOrigem.get().sacar(valor) == true) {
 				contaDestino.get().depositar(valor);
-				System.out.printf("\nA transferência no valor de %s, para a Conta Número %d, foi efetuada com sucesso!",nfMoeda.format(valor), numero);
+				System.out.printf("\nA transferência no valor de %s, para a Conta Número %d, foi efetuada com sucesso!",
+						nfMoeda.format(valor), numero);
 
 			}
 
@@ -130,4 +147,5 @@ public class ContaController implements ContaRepository {
 
 		return Optional.empty();
 	}
+
 }

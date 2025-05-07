@@ -23,10 +23,12 @@ public class Menu {
 		float saldo, limite, valor;
 
 		// Dados para teste
-		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
-		contas.cadastrar(cc1);
-		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
-		contas.cadastrar(cp1);
+		// ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da
+		// Silva", 1000.00f, 100.00f);
+		// contas.cadastrar(cc1);
+		// ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da
+		// Silva", 1000.00f, 12);
+		// contas.cadastrar(cp1);
 
 		while (true) {
 
@@ -45,7 +47,8 @@ public class Menu {
 			System.out.println("*              6 - Sacar                               *");
 			System.out.println("*              7 - Depositar                           *");
 			System.out.println("*              8 - Transferir Valores Entre Contas     *");
-			System.out.println("*              9 - Sair                                *");
+			System.out.println("*              9 - Listar Contas Por Titular           *");
+			System.out.println("*              0 - Sair                                *");
 			System.out.println("*                                                      *");
 			System.out.println("********************************************************");
 			System.out.println("*              ENTRE COM A OPÇÃO DESEJADA:             *");
@@ -53,7 +56,7 @@ public class Menu {
 
 			opcao = leia.nextInt();
 
-			if (opcao == 9) {
+			if (opcao == 0) {
 				System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);
 				System.out.println("********************************************************");
 				System.out.println("BANCO DO BRASIL COM Z - O SEU FUTURO COMESSA AQUI !!   *");
@@ -147,7 +150,7 @@ public class Menu {
 						aniversario = leia.nextInt();
 						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
 					}
-				}
+					}
 
 				} else
 					System.out.printf("\n Aconta número %d nao existe!", numero);
@@ -166,53 +169,63 @@ public class Menu {
 				break;
 			case 6:
 				System.out.println(Cores.TEXT_WHITE + "Saque\n\n");
-				
+
 				System.out.println("Digite o Número da Conta:");
 				numero = leia.nextInt();
-				
+
 				System.out.println("Digite o Valor do Saque:");
 				valor = leia.nextFloat();
-				
-				contas.sacar(numero,valor);
+
+				contas.sacar(numero, valor);
 
 				keyPress();
 				break;
 			case 7:
 				System.out.println(Cores.TEXT_WHITE + "Depósito\n\n");
-				
+
 				System.out.println("Digite o Número da Conta:");
 				numero = leia.nextInt();
-				
+
 				System.out.println("Digite o Valor do Depósito:");
 				valor = leia.nextFloat();
-				
-				contas.depositar(numero,valor);
 
+				contas.depositar(numero, valor);
 
 				keyPress();
 				break;
 			case 8:
 				System.out.println(Cores.TEXT_WHITE + "Transferência entre Contas\n\n");
-								
+
 				System.out.println("Digite o Número da Conta de Origem:");
 				numero = leia.nextInt();
-				
+
 				System.out.println("Digite o Número da Conta de destino:");
 				numeroDestino = leia.nextInt();
-				
+
 				System.out.println("Digite o Valor do Deposito:");
 				valor = leia.nextFloat();
 
+				contas.transferir(numero, numeroDestino, valor);
 				
-				contas.transferir(numero,numeroDestino, valor);
 
-
+				keyPress();
+				break;
+			case 9:
+				System.out.println("\nListar Contas por Titular: ");
+				
+				System.out.println("\nDigite o nome do Titular: ");
+				leia.skip("\\R");
+				titular = leia.nextLine();
+				
+				contas.listarPorTitular(titular);
+				
 				keyPress();
 				break;
 			default:
 				System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
 				keyPress();
 				break;
+
 			}
 		}
 	}
@@ -233,12 +246,20 @@ public class Menu {
 		try {
 
 			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
-			System.in.read();
+			int input;
+			while ((input = System.in.read()) != '\n') {
 
-		} catch (IOException e) {
+				// Ignora qualquer outra tecla diferente do Enter
+				if (input == -1) {
+					throw new IOException("Entrada encerrada inesperadamente");
+				}
+			}
 
-			System.err.println("Ocorreu um erro ao tentar ler o teclado");
-
+		} catch (IOException e) {	
+			System.err.println("Erro de entrada/saída: " + e.getMessage());
+	    } catch (Exception e) {
+	        System.err.println("Ocorreu um erro ao processar a entrada: " + e.getMessage());
+	        
 		}
 	}
 }
