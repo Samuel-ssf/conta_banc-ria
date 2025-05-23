@@ -124,6 +124,7 @@ public class Menu {
 				Optional<Conta> conta = contas.buscarNaCollection(numero);
 
 				if (conta.isPresent()) {
+					
 					System.out.println("Digite o Número da Agência:");
 					agencia = leia.nextInt();
 
@@ -206,19 +207,18 @@ public class Menu {
 				valor = leia.nextFloat();
 
 				contas.transferir(numero, numeroDestino, valor);
-				
 
 				keyPress();
 				break;
 			case 9:
 				System.out.println("\nListar Contas por Titular: ");
-				
+
 				System.out.println("\nDigite o nome do Titular: ");
 				leia.skip("\\R");
 				titular = leia.nextLine();
-				
+
 				contas.listarPorTitular(titular);
-				
+
 				keyPress();
 				break;
 			default:
@@ -255,11 +255,11 @@ public class Menu {
 				}
 			}
 
-		} catch (IOException e) {	
+		} catch (IOException e) {
 			System.err.println("Erro de entrada/saída: " + e.getMessage());
-	    } catch (Exception e) {
-	        System.err.println("Ocorreu um erro ao processar a entrada: " + e.getMessage());
-	        
+		} catch (Exception e) {
+			System.err.println("Ocorreu um erro ao processar a entrada: " + e.getMessage());
+
 		}
 	}
 }

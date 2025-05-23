@@ -21,8 +21,9 @@ public abstract class Conta {
 		this.titular = titular;
 		this.saldo = saldo;
 	}
-	
-	public Conta() {}
+
+	public Conta() {
+	}
 
 	// Metodo Get e Set
 	public int getNumero() {
@@ -81,7 +82,7 @@ public abstract class Conta {
 	public void depositar(float valor) {
 		this.saldo += valor;
 	}
-	
+
 	// Método para visualizar os dados da conta
 	public void visualizar() {
 
@@ -94,7 +95,7 @@ public abstract class Conta {
 		case 2 -> tipo = "Conta Poupança";
 		default -> tipo = "Invalido";
 		}
-		
+
 		System.out.println(Cores.TEXT_GREEN + Cores.ANSI_BLACK_BACKGROUND);
 		System.out.println("********************************************************");
 		System.out.println("*                   DADOS DA CONTA                     *");
@@ -105,7 +106,6 @@ public abstract class Conta {
 		System.out.println("* TIPO DA CONTA: " + tipo);
 		System.out.println("* TITULAR DA CONTA: " + this.titular);
 		System.out.println("* SALDO DA CONTA: " + nfMoeda.format(this.saldo));
-				
 
 	}
 

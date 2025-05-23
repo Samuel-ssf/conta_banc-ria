@@ -39,8 +39,7 @@ public class ContaController implements ContaRepository {
 	public void listarPorTitular(String titular) {
 
 		List<Conta> listaTitulares = ListaContas.stream()
-				.filter(c -> c.getTitular().toUpperCase().contains(titular.toUpperCase()))
-				.collect(Collectors.toList());
+				.filter(c -> c.getTitular().toUpperCase().contains(titular.toUpperCase())).collect(Collectors.toList());
 
 		if (listaTitulares.isEmpty())
 			System.out.printf("\nNenhuma conta foi encontrada com base no criterio: %s", titular);
