@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 import conta_bancaria.util.Cores;
 
-public class Conta {
+public abstract class Conta {
 
 	// Atributos da Classe
 	private int numero;
